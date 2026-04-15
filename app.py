@@ -1,21 +1,18 @@
 import streamlit as st
+import numpy as np
+from apputil import kmeans
 
-from apputil import *
+st.title("K-Means Demo")
 
+k = st.slider("Number of clusters (k)", 2, 10, 3)
 
-st.write(
-'''
-# Week x: [Title]
+# random sample data
+X = np.random.rand(100, 2)
 
-...
-''')
+centroids, labels = kmeans(X, k)
 
-# currently set for integer input
-amount = st.number_input("Exercise Input: ", 
-                         value=None, 
-                         step=1, 
-                         format="%d")
+st.write("Centroids:")
+st.write(centroids)
 
-if amount is not None:
-    st.write(f"The exercise input was {amount}.")
-
+st.write("Cluster labels (first 10):")
+st.write(labels[:10])
